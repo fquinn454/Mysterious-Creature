@@ -77,7 +77,6 @@ function createSampleArr(){
 
 
 //Tests
-
 dna1 = mockUpStrand();
 dna2 = mockUpStrand();
 console.log(dna1);
