@@ -14,6 +14,31 @@ const mockUpStrand = () => {
 };
 
 
+/* Each P.aequor individual has a unique specimen number
+this should not be changed or reset.
+*/
+let _individualCount = 1; 
+
+// Factory Function to create new P.aequor individuals
+function pAequorFactory(_individualCount, arr){
+  return {
+    _specimenNumber: _individualCount += 1, 
+    dna: arr,
+    mutate(){
+      // Generate random number between 0 - 14
+      const baseNumber = Math.floor(Math.random() * 15);
+      // Record the original value of the base that will change during mutation
+      const baseToChange = this.dna[baseNumber];
+      // Choose a random base (different from original) to replace base to change
+      while(this.dna[baseNumber ] === baseToChange){
+        this.dna[baseNumber] = returnRandBase();
+      }
+    }
+  };
+};
+
+
+
 
 
 
