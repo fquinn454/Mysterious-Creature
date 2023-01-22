@@ -3,7 +3,6 @@ Simulate the DNA mutation in P. aequor organism
 
 <h3>Instructions</h3>
 <p>Run from terminal with the command node main.js</p>
-</br>
 <h3>Features</h3>
 <ul>
     <li>
