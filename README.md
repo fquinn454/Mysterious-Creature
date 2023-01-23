@@ -20,9 +20,20 @@ Simulate the DNA mutation in P. aequor organism
                 <li>
                     <p>willLikelySurvive() works out % C or G bases and returns true (will likely survive) for values > 60%</p>
                 </li>
+                <li>
+                    <p>compareDnaPercentage(pAequor) helper function for mostRelated() returns the percentage similarity in the dna between this.paequor and another paequor object</p>
+                </li>
             </ul>
     </li>
     <li>
         <p><strong>createSampleArr()</strong> creates an array of 30 pAequor objects that will likely survive</p>
     </li>
+    <li>
+        <p><strong>EXTENSION complementaryDna(pAequor)</strong> returns a strand of dna complementary 
+        to that of the parameter pAequor.dna</p>
+    </li>
+    <li>
+        <p><strong>EXTENSION mostRelated(sampleArr)</strong> returns the two most closely related individuals from a array of p.aequor individuals</p>
+    </li>
+    
 </ul>

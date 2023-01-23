@@ -53,6 +53,16 @@ function pAequorFactory(num, arr){
         return false;
       }
     },
+
+    compareDnaPercentage(pAequor){
+      let sameBaseCount = 0;
+      for(i = 0; i < pAequor.dna.length; i++){
+        if(this.dna[i] === pAequor.dna[i]){
+          sameBaseCount++;
+        }
+      }
+      return Math.round(sameBaseCount/pAequor.dna.length * 100);
+    }
   };
 };
 
@@ -77,7 +87,7 @@ function createSampleArr(){
 function complementaryDna(pAequor){
   let complementaryStrand = [];
   let dnaStrand = pAequor.dna;
-  for(i = 0; i < pAequor.dna.length; i++){
+  for(i = 0; i < dnaStrand.length; i++){
     switch(dnaStrand[i]){
       case 'A' : complementaryStrand.push('T');
         break;
@@ -97,22 +107,23 @@ function complementaryDna(pAequor){
 
 // EXTENSION return the two most related organisms in sample array
 function mostRelated(sampleArr){
-  let firstIndividual;
-  let secondIndividual;
-  let percentageRelated = 0;
-  for (i = 0; i <= 30; i++){
-    for(j = 0; j <= 30; j++){
-      if(sampleArr[i] !== sampleArr[j] && sampleArr[i].compareDNA(sampleArr[j]) > percentageRelated){
-        firstIndividual = sampleArr[i];
-        secondIndividual = sampleArr[j];
-        percentageRelated = sampleArr[i].compareDNA(sampleArr[j]); 
+  let mostRelated = -1;
+  let organism1 = 0;
+  let organism2 = 0;
+  for(let i = 0; i < sampleArr.length; i++){
+    for(let j = 0; j < sampleArr.length; j++){
+      let newPercentage = sampleArr[i].compareDnaPercentage(sampleArr[j]);
+      if(i !== j && newPercentage > mostRelated){
+        mostRelated = newPercentage;
+        organism1 = sampleArr[i];
+        organism2 = sampleArr[j];
       }
     }
-  }   
-  console.lot(`Speciment #${firstIndividual._specimenNumber} and Specimen #${secondIndividual._specimenNumber} are most closely
-  related in this sample. The share ${percentageRelated} DNA`);
-
+  }
+  console.log(`Specimen #${organism1._specimenNumber} and Specimen #${organism2._specimenNumber} are the most closely related individuals. 
+  They have ${mostRelated}% DNA in common`)
 }
+
 
 
 //Tests
@@ -122,7 +133,6 @@ sample = createSampleArr();
 p1 = pAequorFactory(1, dna1);
 console.log(p1.dna);
 console.log(complementaryDna(p1));
-console.log(sample)
 console.log(sample[0].compareDNA(sample[1]));
 mostRelated(sample);
 
