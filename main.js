@@ -14,7 +14,6 @@ const mockUpStrand = () => {
 };
 
 // Factory Function to create new P.aequor individuals
-
 function pAequorFactory(num, arr){
   return {
     _specimenNumber: num,
@@ -29,6 +28,7 @@ function pAequorFactory(num, arr){
         this.dna[baseNumber] = returnRandBase();
       }
     },
+    // compare this.dna to the parameter p.aequor.dna and print a string stating the % similarity of the dna
     compareDNA(pAequor){
       let sameBaseCount = 0;
       for(i = 0; i < pAequor.dna.length; i++){
@@ -39,6 +39,8 @@ function pAequorFactory(num, arr){
       let percentageSimilarity = Math.round(sameBaseCount/pAequor.dna.length * 100);
       console.log(`Specimen #${this._specimenNumber} and Specimen #${pAequor._specimenNumber} have ${percentageSimilarity}% DNA in common`);
     }, 
+
+    // p.aequor objects with dna that is >= 60% C or G bases are likely to survive. Return boolean
     willLikelySurvive(){
       let countCAndG = 0;
       for(i = 0; i < this.dna.length; i++){
@@ -54,6 +56,8 @@ function pAequorFactory(num, arr){
       }
     },
 
+
+    // Helper function return the % similarity in the this.dna to parameter pAequor.dna as a number
     compareDnaPercentage(pAequor){
       let sameBaseCount = 0;
       for(i = 0; i < pAequor.dna.length; i++){
@@ -105,14 +109,20 @@ function complementaryDna(pAequor){
   return complementaryStrand;
 }
 
-// EXTENSION return the two most related organisms in sample array
+/*
+EXTENSION return the two most related organisms in sample array
+Starting with the first paequor in the array, compare its dna to all other paequor objects
+to find the two with the most similar dna
+*/
 function mostRelated(sampleArr){
   let mostRelated = -1;
   let organism1 = 0;
   let organism2 = 0;
+// loop through the array comparing the dna of each p.aequor objects to all other p.aequor objects
   for(let i = 0; i < sampleArr.length; i++){
     for(let j = 0; j < sampleArr.length; j++){
       let newPercentage = sampleArr[i].compareDnaPercentage(sampleArr[j]);
+      // provided they are not the same object and are more similar than the previous closest two 
       if(i !== j && newPercentage > mostRelated){
         mostRelated = newPercentage;
         organism1 = sampleArr[i];
